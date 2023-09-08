@@ -39,8 +39,8 @@ if uploaded_file is not None:
                 setup(data, target=input_col, ignore_features=input_ex)
                 compare_models()
 
-    input_col = st.sidebar.textarea('Enter your target column')
-    input_ex = st.sidebar.textarea('Enter your exclude column')
+    input_col = st.sidebar.text_area('Enter your target column')
+    input_ex = st.sidebar.text_area('Enter your exclude column')
 
     run_pycaret(data, task, input_col, input_ex)
 else:
