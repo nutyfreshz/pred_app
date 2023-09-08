@@ -2,10 +2,6 @@ import streamlit as st
 import pandas as pd
 from pycaret.classification import *
 from pycaret.regression import *
-import subprocess
-
-# Define the command to install packages from requirements.txt
-command = ["pip", "install", "-r", "requirements.txt"]
 
 # Title
 st.title("PyCaret Prediction App")
@@ -17,7 +13,25 @@ uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type=["csv"])
 # Choose task (classification or regression)
 task = st.sidebar.selectbox("Model", ("Classification", "Regression"))
 
-# Load data and select appropriate PyCaret function
+# Define functions
+def run_pycaret(data, task, input_col, input_ex):
+    if task == "Classification":
+        st.subheader("Classification Model")
+
+        if st.button("Run Classification"):
+            setup(data, target=input_col, ignore_features=input_ex)
+            compare_models()
+
+    elif task == "Regression":
+        st.subheader("Regression Model")
+
+        if st.button("Run Regression"):
+            setup(data, target=input_col, ignore_features=input_ex)
+            compare_models()
+
+    st.sidebar.markdown("### Data Sample")
+    st.sidebar.write(data.head())
+
 if uploaded_file is not None:
     @st.cache
     def load_data():
@@ -25,33 +39,9 @@ if uploaded_file is not None:
         return data
 
     data = load_data()
+    input_col = st.sidebar.textarea('Enter your target column')
+    input_ex = st.sidebar.textarea('Enter your exclude column')
 
-    if task == "Classification":
-        st.subheader("Classification Model")
-
-        # Add code for classification tasks using PyCaret here
-        # Example:
-        if st.button("Run Classification"):
-            setup(data
-                  , target = input_col)
-            compare_models()
-
-    elif task == "Regression":
-        st.subheader("Regression Model")
-
-        # Add code for regression tasks using PyCaret here
-        # Example:
-        if st.button("Run Regression"):
-            setup(data
-                  , target = input_col)
-            compare_models()
-
-    st.sidebar.markdown("### Data Sample")
-    st.sidebar.write(data.head())
-    input_col = st.textarea('Enter your target column')
-    input_ex = st.textarea('Enter your exclude column')
-
+    run_pycaret(data, task, input_col, input_ex)
 else:
     st.warning("Please upload a CSV file.")
-
-# Optional: Add more Streamlit components for user interaction and displaying results.
