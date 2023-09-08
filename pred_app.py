@@ -5,7 +5,7 @@ from pycaret.regression import *
 import subprocess
 
 # Define the command to install packages from requirements.txt
-command = ["pip", "install", "-r", "requirements.txt"]
+command = ["pip", "install", "-r", "requirement.txt"]
 
 # Title
 st.title("PyCaret Prediction App")
