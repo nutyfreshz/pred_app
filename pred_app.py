@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-from pycaret.classification import *
-from pycaret.regression import *
 
 # Title
 st.title("PyCaret Prediction App")
@@ -28,6 +26,8 @@ if uploaded_file is not None:
         if task == "Classification":
             st.subheader("Classification Model")
 
+            from pycaret.regression import *
+            
             if st.button("Run Classification"):
                 setup(data, target=input_col, ignore_features=input_ex)
                 compare_models()
@@ -35,6 +35,8 @@ if uploaded_file is not None:
         elif task == "Regression":
             st.subheader("Regression Model")
 
+            from pycaret.classification import *
+            
             if st.button("Run Regression"):
                 setup(data, target=input_col, ignore_features=input_ex)
                 compare_models()
