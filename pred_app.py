@@ -15,7 +15,7 @@ st.sidebar.header("Upload Data")
 uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type=["csv"])
 
 # Choose task (classification or regression)
-task = st.sidebar.selectbox("Select a Task", ("Classification", "Regression"))
+task = st.sidebar.selectbox("Model", ("Classification", "Regression"))
 
 # Load data and select appropriate PyCaret function
 if uploaded_file is not None:
@@ -27,25 +27,29 @@ if uploaded_file is not None:
     data = load_data()
 
     if task == "Classification":
-        st.subheader("Classification Task")
+        st.subheader("Classification Model")
 
         # Add code for classification tasks using PyCaret here
         # Example:
         if st.button("Run Classification"):
-            setup(data, target="target_column")
+            setup(data
+                  , target = input_col)
             compare_models()
 
     elif task == "Regression":
-        st.subheader("Regression Task")
+        st.subheader("Regression Model")
 
         # Add code for regression tasks using PyCaret here
         # Example:
         if st.button("Run Regression"):
-            setup(data, target="target_column")
+            setup(data
+                  , target = input_col)
             compare_models()
 
     st.sidebar.markdown("### Data Sample")
     st.sidebar.write(data.head())
+    input_col = st.textarea('Enter your target column')
+    input_ex = st.textarea('Enter your exclude column')
 
 else:
     st.warning("Please upload a CSV file.")
