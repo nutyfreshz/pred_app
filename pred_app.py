@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import pyautogui
 
 # Title
 st.title("PyCaret Prediction App")
@@ -25,18 +26,20 @@ if uploaded_file is not None:
     def run_pycaret(data, task, input_col, input_ex):
         if task == "Classification":
             st.subheader("Classification Model")
-            from pycaret.classification import setup, compare_models
+            from pycaret.classification import *
 
             if st.button("Run Classification"):
                 setup(data, target=input_col, ignore_features=input_ex)
+                pyautogui.press('enter')
                 compare_models()
 
         elif task == "Regression":
             st.subheader("Regression Model")
-            from pycaret.regression import setup, compare_models
+            from pycaret.regression import *
 
             if st.button("Run Regression"):
                 setup(data, target=input_col, ignore_features=input_ex)
+                pyautogui.press('enter')
                 compare_models()
 
     input_col = st.sidebar.text_area('Enter your target column')
