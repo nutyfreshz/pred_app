@@ -3,7 +3,6 @@ command = ["pip", "install", "-r", "requirements.txt"]
 
 import streamlit as st
 import pandas as pd
-import pyautogui
 
 # Title
 st.title("PyCaret Prediction App")
@@ -32,7 +31,7 @@ if uploaded_file is not None:
             from pycaret.classification import setup, create_model, compare_model, tune_model, plot_model
 
             if st.button("Run Classification"):
-                setup(data, target=input_col, ignore_features=input_ex)
+                setup(data, target=input_col, ignore_features=input_ex, verbose = False)
                 pyautogui.press('enter')
                 compare_models()
 
