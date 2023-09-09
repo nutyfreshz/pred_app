@@ -32,7 +32,7 @@ if uploaded_file is not None:
 
             if st.button("Run Classification"):
                 setup(data, target=input_col, ignore_features=input_ex, verbose = False)
-                pyautogui.press('enter')
+            
                 compare_models()
 
         elif task == "Regression":
@@ -41,7 +41,7 @@ if uploaded_file is not None:
 
             if st.button("Run Regression"):
                 setup(data, target=input_col, ignore_features=input_ex , verbose = False)
-                pyautogui.press('enter')
+            
                 compare_models()
 
     input_col = st.sidebar.text_area('Enter your target column')
