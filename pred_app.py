@@ -40,7 +40,7 @@ if uploaded_file is not None:
             from pycaret.regression import setup, create_model, compare_model, tune_model, plot_model
 
             if st.button("Run Regression"):
-                setup(data, target=input_col, ignore_features=input_ex, , verbose = False)
+                setup(data, target=input_col, ignore_features=input_ex , verbose = False)
                 pyautogui.press('enter')
                 compare_models()
 
