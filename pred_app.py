@@ -26,7 +26,7 @@ if uploaded_file is not None:
     def run_pycaret(data, task, input_col, input_ex):
         if task == "Classification":
             st.subheader("Classification Model")
-            from pycaret.classification import *
+            from pycaret.classification import setup, create_model, compare_model, tune_model, plot_model
 
             if st.button("Run Classification"):
                 setup(data, target=input_col, ignore_features=input_ex)
@@ -35,7 +35,7 @@ if uploaded_file is not None:
 
         elif task == "Regression":
             st.subheader("Regression Model")
-            from pycaret.regression import *
+            from pycaret.regression import setup, create_model, compare_model, tune_model, plot_model
 
             if st.button("Run Regression"):
                 setup(data, target=input_col, ignore_features=input_ex)
