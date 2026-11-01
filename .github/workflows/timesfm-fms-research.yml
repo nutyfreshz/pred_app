@@ -1,0 +1,32 @@
+name: TimesFM FMS real model research
+on:
+  push:
+    branches:
+      - experiment/timesfm-fms-20261101
+    paths:
+      - .github/workflows/timesfm-fms-research.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  timesfm-fms:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU PyTorch and TimesFM
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install "timesfm[torch]==2.0.2" "yfinance>=0.2.55" pandas numpy
+      - name: Run official TimesFM 2.5 checkpoint on FMS
+        run: python -u experiments/timesfm_fms_actual.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: timesfm-fms-research-results
+          path: timesfm-fms-results/
+          if-no-files-found: ignore
