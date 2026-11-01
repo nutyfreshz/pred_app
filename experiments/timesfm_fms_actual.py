@@ -92,7 +92,7 @@ def main():
     (OUT/"forecast.json").write_text(json.dumps(result,indent=2),encoding="utf-8")
     print("TIMESFM_REAL_FORECAST_JSON "+json.dumps(result),flush=True)
     # Evaluate the latest 10 origins with strict causality (the target is never in the context).
-    ntest=min(10,len(closes)-context)
+    ntest=min(120,len(closes)-context)
     pred=[]
     for i in range(len(closes)-ntest,len(closes),4):
         j=min(i+4,len(closes))
